@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Meal sheet {% endblock %}
+{% block stylesheet %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/my_toggle.css' %}" />
+{% endblock %}
+
+{% block maincontent %}
+<br>
+<h3 class="text-center text-primary">Order your meal on {{ date }}</h3>
+<br>
+<div>
+
+     <div class="card">
+
+                <div class="card-header">
+                    <h2 class="text-center">Choose your meal</h2>
+                </div>
+
+                <!-- List group -->
+                <form action="" method="POST">
+                     {% csrf_token %}
+
+                    <ul class="list-group">
+                        <li class="list-group-item ">
+                            <h5 class="border border-success float-left ">Breakfast</h5>
+                            <div class="float-right border border-danger form-check">
+                               <label class="switch">
+                                <input  type="checkbox" class="form-check-input" name="breakfast">
+                                <span class="slider round"></span>
+                               </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="border border-success float-left">Lunch</h5>
+                            <div class="float-right form-check">
+                                <label class="switch">
+                                    <input type="checkbox" class="form-check-input"  name="lunch">
+                                    <span class="slider round"></span>
+                                </label>
+
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="border border-success float-left">Dinner</h5>
+                            <div class="float-right form-check">
+                                <label class="switch">
+                                    <input type="checkbox" class="form-check-input" name="dinner">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}

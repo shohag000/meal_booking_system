@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Meal sheet {% endblock %}
+{% block stylesheet %}{% endblock %}
+
+   {% block maincontent %}
+  <h1 class="text-center text-warning" id="n">Daily Meal Chart</h1>
+  <h1 class="text-center text-success">Today {{ today }}</h1>
+  <br>
+
+  <table class="table table-hover table-dark table-bordered">
+      <thead>
+        <tr class="bg-info">
+          <th scope="col">Name</th>
+          {% for date_in_list in my_list %}
+          <th scope="col">{{ date_in_list|date:"D d M" }}</th>
+          {% endfor %}
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for border in borders %}
+        <tr>
+          <th scope="row">{{ border.user }}</th>
+          {% for date_in_list in my_list %}
+            {% if border.user.full_name == user_full_name and date_in_list in orderable_date_list %}
+            <td>
+                <a href="{% url 'order' date=date_in_list %}">Order</a>
+            </td>
+            {% else %}
+          <td>
+              {% for daily_meal in daily_meals %}
+              {% if border.user.full_name == daily_meal.name.user.full_name and daily_meal.meal_date == date_in_list %}
+
+                    <a href="#" data-toggle="tooltip" title="Breakfast!">{{ daily_meal.breakfast_ }}</a><br>
+                    <a href="#" data-toggle="tooltip" title="Lunch!">{{ daily_meal.lunch_ }} </a><br>
+                    <a href="#" data-toggle="tooltip" title="Dinner!">{{ daily_meal.dinner_ }} </a>
+              {% endif %}
+              {% endfor %}
+
+          </td>
+            {% endif %}
+          {% endfor %}
+        </tr>
+        {% endfor %}
+
+      </tbody>
+  </table>
+  {% endblock %}
+
+    {% block script %}
+    <script>
+    var b= document.getElementsByTagName("td");
+    Array.from(b).forEach(function(b){
+
+    if (b.childNodes.length != 9 ){
+        if (b.childNodes.length != 3 ){
+        b.textContent= "No Meal";
+        }
+    }
+
+    /*
+    This is for creating a link
+    var alink = document.createElement("a");
+    var a=document.getElementsByTagName("th")[8].innerText;
+    alink.href = "https://www.google.com/";
+    alink.text = "Test Link";
+    b.appendChild(alink);
+    */
+    //console.log(b.parentNode.childNodes[1].textContent);
+    //console.log(b.previousElementSibling);
+    //console.log(check_count);
+    //console.log(document.getElementsByTagName("th")[8].innerText);
+
+
+    })
+    </script>
+    {% endblock %}
